@@ -38,7 +38,7 @@ This repository contains scripts used in the study *Evolutionary fate of the pro
 - `clean_fasta.py` - Filters raw sequence data for quality control.
 
 ### Expression Analysis
-- `LMM-analysis-plot.R` - Conducts linear mixed-effects modeling (LMM) analysis on RNA-seq data, performs post-hoc comparisons, and visualizes gene expression patterns with boxplots and violin plots.
+- `LMM-analysis_plot.R` - Conducts linear mixed-effects modeling (LMM) analysis on RNA-seq data, performs post-hoc comparisons, and visualizes gene expression patterns with boxplots and violin plots.
 
 ## Usage
 Each script contains comments and instructions for execution. To run a script, ensure you have the required dependencies installed. Example:
