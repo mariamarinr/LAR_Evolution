@@ -1,58 +1,50 @@
-# Load required libraries
+# Load required library
 library(tidyverse)
 
 # File paths — update these for your data
-gene_list_file   <- "data/gene_list.csv"        # One gene ID per line
-count_data_file  <- "data/count_matrix.tsv"     # Tab-delimited count matrix: Gene x Samples
-metadata_file    <- "data/sample_metadata.csv"  # First column = sample IDs
+genelist_path <- "/path/to/gene_list.csv"         # # One gene ID per line
+countdata_path <- "/path/to/count_table.txt"       # Tab-delimited count matrix with 'gene' column and sample IDs
+metadata_path <- "/path/to/metadata.csv"          # e.g., CSV with 'Run' and 'tissue' columns
 
 # Output files
-expression_output_file <- "results/filtered_expression_matrix.csv"
-merged_output_file     <- "results/merged_expression_metadata.csv"
+expression_output <- "filtered_expression_data.csv" # Output expression matrix
+merged_output <- "merged_expression_metadata.csv"   # Output merged data
 
-# Step 1: Filter expression data by gene list
-filter_expression_data <- function(gene_list_path, count_data_path, output_path) {
-  gene_list <- read_lines(gene_list_path) %>% str_trim()
-  
-  count_data <- read_tsv(count_data_path, show_col_types = FALSE) %>%
-    rename(GeneID = 1) %>%  # Rename first column to 'GeneID'
-    mutate(GeneID = str_trim(as.character(GeneID))) %>%
-    filter(GeneID %in% gene_list)
-  
-  transposed <- count_data %>%
+# Step 1: Extract gene expression data for selected genes
+extract_expression_data <- function(genelist_path, countdata_path, output_path) {
+  # Read gene list and count data
+  gene_list <- read_csv(genelist_path, col_names = c("GeneID", "Alias")) %>%
+    mutate(GeneID = str_trim(GeneID))
+
+  count_data <- read_tsv(countdata_path, show_col_types = FALSE) %>%
+    rename(GeneID = gene) %>%
+    mutate(GeneID = str_trim(GeneID))
+
+  # Filter for selected genes
+  filtered <- count_data %>%
+    filter(GeneID %in% gene_list$GeneID) %>%
     column_to_rownames("GeneID") %>%
     t() %>%
     as.data.frame() %>%
     rownames_to_column("Sample")
-  
-  write_csv(transposed, output_path)
-  return(transposed)
+
+  write_csv(filtered, output_path)
+  return(filtered)
 }
 
-# Step 2: Merge expression matrix with metadata
-merge_expression_with_metadata <- function(expression_path, metadata_path, output_path) {
+# Step 2: Merge expression data with metadata by Sample ID ("Run")
+merge_with_metadata <- function(expression_path, metadata_path, output_path) {
   expression_data <- read_csv(expression_path, show_col_types = FALSE)
-  
+
   metadata <- read_csv(metadata_path, show_col_types = FALSE) %>%
-    rename(Sample = 1)  # Rename first column to 'Sample'
-  
+    rename(Sample = Run) %>%  # Assumes 'Run' column holds sample IDs matching expression data
+    select(Sample, tissue)    # Keep only relevant columns
+
   merged <- inner_join(expression_data, metadata, by = "Sample")
-  
   write_csv(merged, output_path)
   return(merged)
 }
 
-# Create output folders if needed
-dir.create("results", showWarnings = FALSE, recursive = TRUE)
-
-filtered_expression <- filter_expression_data(
-  gene_list_path   = gene_list_file,
-  count_data_path  = count_data_file,
-  output_path      = expression_output_file
-)
-
-merged_data <- merge_expression_with_metadata(
-  expression_path = expression_output_file,
-  metadata_path   = metadata_file,
-  output_path     = merged_output_file
-)
+# Run the workflow
+expression_data <- extract_expression_data(genelist_path, countdata_path, expression_output)
+merged_data <- merge_with_metadata(expression_output, metadata_path, merged_output)
