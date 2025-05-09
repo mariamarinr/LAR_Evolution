@@ -38,6 +38,7 @@ This repository contains scripts used in the study *Evolutionary fate of the pro
 - `clean_fasta.py` - Filters raw sequence data for quality control.
 
 ### Expression Analysis
+- `prep_expression_matrix.R` - Filters RNA-seq count data based on a list of candidate genes, transposes the expression matrix, and merges it with sample metadata to prepare a clean dataset for downstream analyses (e.g., visualization, statistical modeling).
 - `LMM-analysis_plot.R` - Conducts linear mixed-effects modeling (LMM) analysis on RNA-seq data, performs post-hoc comparisons, and visualizes gene expression patterns with boxplots and violin plots.
 
 ## Usage
