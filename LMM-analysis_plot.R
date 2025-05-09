@@ -7,7 +7,7 @@ library(tidyr)      # Data reshaping
 library(emmeans)    # Post-hoc analysis
 
 # Define file paths
-input_data <- "path/to/LAR-GE_data.csv" #table containing sample, tissue-type, genes with count data
+input_data <- "path/to/LAR-GE_data.csv" #table containing sample, Tissue-type, genes with count data
 output_plot_png <- "output/GE-plot.png"
 output_plot_svg <- "output/GE-plot.svg"
 output_model_summary <- "output/model_summary.txt"
@@ -21,17 +21,17 @@ head(data)  # Inspect first few rows
 data_long <- data %>%
   pivot_longer(cols = starts_with("LAR"), names_to = "Gene", values_to = "TPM") %>%
   mutate(Genes = ifelse(grepl("LAR1", Gene), "LAR1", "LAR2"),
-         Tissue_Gene = paste(tissue, Genes, sep = "-"))
+         Tissue_Gene = paste(Tissue, Genes, sep = "-"))
 
 # Step 2: Log Transformation
 data_long <- data_long %>% mutate(TPM_log = log(TPM + 1))
 
 # Step 3: Linear Mixed-Effects Model (LMM)
-model <- lmer(TPM_log ~ Genes * tissue + (1 | Sample), data = data_long)
+model <- lmer(TPM_log ~ Genes * Tissue + (1 | Sample), data = data_long)
 summary(model)
 
 # Step 4: Post-Hoc Analysis
-emmeans_results <- emmeans(model, pairwise ~ Genes | tissue)
+emmeans_results <- emmeans(model, pairwise ~ Genes | Tissue)
 summary(emmeans_results)
 
 # Save Model Results
@@ -39,7 +39,7 @@ capture.output(summary(model), file = output_model_summary)
 capture.output(summary(emmeans_results), file = output_emmeans_results)
 
 # Step 5: Create Boxplot & Violin Plot
-plot_species <- ggplot(data_long, aes(x = tissue, y = TPM_log, fill = Genes)) +
+plot_species <- ggplot(data_long, aes(x = Tissue, y = TPM_log, fill = Genes)) +
   geom_boxplot(position = position_dodge(width = 0.75), width = 0.25, alpha = 0.7) +
   geom_violin(position = position_dodge(width = 0.75), alpha = 0.3) +
   scale_fill_manual(values = c("LAR1" = "#cb4154", "LAR2" = "#4682b4"),
