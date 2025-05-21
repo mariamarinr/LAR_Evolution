@@ -39,7 +39,7 @@ This repository contains scripts used in the study *Evolutionary fate of the pro
 
 ### Expression Analysis
 - `prep_expression_matrix.R` - Filters RNA-seq count data based on a list of candidate genes, transposes the expression matrix, and merges it with sample metadata to prepare a clean dataset for downstream analyses (e.g., visualization, statistical modeling).
-- `LMM-analysis_plot.R` - Conducts linear mixed-effects modeling (LMM) analysis on RNA-seq data, performs post-hoc comparisons, and visualizes gene expression patterns with boxplots and violin plots.
+- `LMM_expression_analysis.R` - Conducts linear mixed-effects modeling (LMM) analysis on RNA-seq data, performs post-hoc comparisons, and visualizes gene expression patterns with boxplots and violin plots.
 
 ## Usage
 Each script contains comments and instructions for execution. To run a script, ensure you have the required dependencies installed. Example:
@@ -55,7 +55,7 @@ python3 clean_fasta.py input.fasta output.fasta
 - Required R packages: ggplot2, lme4, lmerTest, dplyr, tidyr, emmeans 
 
 ## Contact
-For any questions or issues, please open an issue in this repository or contact Maria Fernanda Marin at mafer.recinos92@gmail.com.
+For any questions or issues, please open an issue in this repository or contact Maria F Marin-Recinos at mafer.recinos92@gmail.com.
 
 ---
 
