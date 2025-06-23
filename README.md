@@ -41,19 +41,22 @@ This repository contains scripts used in the study *Evolutionary fate of the pro
 ### Expression Analysis
 - `prep_expression_matrix.R` - Filters RNA-seq count data based on a list of candidate genes, transposes the expression matrix, and merges it with sample metadata to prepare a clean dataset for downstream analyses (e.g., visualization, statistical modeling).
 - `LMM_expression_analysis.R` - Conducts linear mixed-effects modeling (LMM) analysis on RNA-seq data, performs post-hoc comparisons, and visualizes gene expression patterns with boxplots and violin plots.
-
+- `hisat2_mapping.sh` - Performs RNA-seq read alignment to genome assemblies using HISAT2.  It automatically builds indexes per species, aligns all samples, and produces merged and sorted BAM files.
+  
 ## Usage
 Each script contains comments and instructions for execution. To run a script, ensure you have the required dependencies installed. Example:
 
 ```bash
-python3 clean_fasta.py input.fasta output.fasta
-```
+./hisat2_mapping.sh -b /path/to/base_directory -o /path/to/output
 
 ## Requirements
 - Python (>=3.8)
 - R (>=4.0)
 - Required Python libraries: Biopython, NumPy, Pandas
-- Required R packages: ggplot2, lme4, lmerTest, dplyr, tidyr, emmeans 
+- Required R packages: ggplot2, lme4, lmerTest, dplyr, tidyr, emmeans
+- HISAT2 v2.2.1+
+- SAMtools v1.15+
+- Bash
 
 ## Contact
 For any questions or issues, please open an issue in this repository or contact Maria F Marin-Recinos at mafer.recinos92@gmail.com.
