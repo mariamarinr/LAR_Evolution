@@ -36,7 +36,7 @@ This repository contains scripts used in the study *Evolutionary fate of the pro
 
 ### Data Preprocessing
 - `clean_fasta.py` - Filters raw sequence data for quality control.
-- `extracs_kipes_cds.py` - Extract high-quality LAR/DFR/ANR protein sequences from KIPES output and map them to corresponding CDS sequences using a CSV table
+- `extract_kipes_cds.py` - Extract high-quality LAR/DFR/ANR protein sequences from KIPES output and map them to corresponding CDS sequences using a CSV table
   
 ### Expression Analysis
 - `prep_expression_matrix.R` - Filters RNA-seq count data based on a list of candidate genes, transposes the expression matrix, and merges it with sample metadata to prepare a clean dataset for downstream analyses (e.g., visualization, statistical modeling).
