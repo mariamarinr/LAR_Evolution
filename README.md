@@ -7,7 +7,7 @@
 # LAR_Evolution
 
 <p align="center">
-  <strong><font size="4"><h1>Evolutionary dynamics of the proanthocyanidin biosynthesis gene <em>LAR </em></h1></font></strong>
+  <strong><font size="4"><h1>Evolutionary Dynamics of the Proanthocyanidin Biosynthesis Gene <em>LAR </em></h1></font></strong>
 </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -24,7 +24,7 @@
 </details>
 
 ## Overview
-This repository contains scripts used in the study *Evolutionary fate of the proanthocyanidin biosynthesis gene LAR*. These scripts were utilized for data processing, analysis, and visualization.
+This repository contains scripts used in the study *Evolutionary Dynamics of the Proanthocyanidin Biosynthesis Gene LAR*. These scripts were utilized for data processing, analysis, and visualization.
 
 ## Repository Structure
 
