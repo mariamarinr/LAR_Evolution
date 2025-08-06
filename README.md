@@ -7,7 +7,7 @@
 # LAR_Evolution
 
 <p align="center">
-  <strong><font size="4"><h1>Evolutionary fate of the proanthocyanidin biosynthesis gene <em>LAR </em></h1></font></strong>
+  <strong><font size="4"><h1>Evolutionary dynamics of the proanthocyanidin biosynthesis gene <em>LAR </em></h1></font></strong>
 </p>
 
 <!-- TABLE OF CONTENTS -->
